@@ -23,7 +23,3 @@ app.use('/authentication', require('./controllers/authentication'))
 app.listen(process.env.PORT, () => {
     console.log(`Listening on ${process.env.PORT}`)
 })
-
-  
-
-  
