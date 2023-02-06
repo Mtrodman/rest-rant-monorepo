@@ -20,6 +20,11 @@ router.post('/', async (req, res) => {
     }
 })
 
+  
+router.get('/profile', async (req, res) => {
+    res.json(req.currentUser)
+})
+
 
 router.get('/profile', async (req, res) => {
     try {
@@ -50,3 +55,10 @@ router.get('/profile', async (req, res) => {
 })
 
 module.exports = router
+
+  
+  
+router.get('/profile', async (req, res) => {
+    res.json(req.currentUser)
+})
+
