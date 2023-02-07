@@ -37,7 +37,7 @@ function NewCommentForm({ place, onSubmit }) {
         })
     }
     
-    const { currentUser } = useContext(CurrentUser)
+    const { currentUser } = useContext(currentUser)
     
     if(!currentUser){
         return <p>You must be logged in to leave a rant or rave.</p>
