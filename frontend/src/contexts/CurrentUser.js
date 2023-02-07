@@ -25,4 +25,5 @@ function CurrentUserProvider({ children }) {
         </CurrentUser.Provider>
     )
 }
+
 export default CurrentUserProvider
