@@ -1,14 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
-//This component provides a React context that shares the logged-in user
-// across the application, which makes it a natural place for us
-// to check for an already-logged-in user on page load.
 
 export const CurrentUser = createContext()
 
 function CurrentUserProvider({ children }) {
 
     const [currentUser, setCurrentUser] = useState(null)
+
     useEffect(() => {
 
         const getLoggedInUser = async () => {
@@ -27,5 +25,4 @@ function CurrentUserProvider({ children }) {
         </CurrentUser.Provider>
     )
 }
-
 export default CurrentUserProvider
