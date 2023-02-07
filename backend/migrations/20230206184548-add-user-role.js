@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.addColumn('users', 'role', {
-        type: Sequelize.DataTypes.ENUM,
+        type: Sequelize.ENUM,
         values: [
           'reviewer',
           'admin',

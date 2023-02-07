@@ -1,3 +1,6 @@
+//the middleware attaches the current user to the request object,
+//making it accessible in all of our route handlers.
+
 const db = require("../models")
 
 const { User } = db;
