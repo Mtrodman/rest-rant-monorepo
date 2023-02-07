@@ -24,20 +24,31 @@ function Navigation() {
     )
 
     if (currentUser) {
-        loginActions = (
-            <>
+        loginActions = (<>
             <li style={{ float: 'right' }}>
                 Logged in as {currentUser.firstName} {currentUser.lastName}
             </li>
             <li style={{ float: 'right' }}>
                 <a href="#" onClick={() => {
-                    localStorage.removeItem('token')
+                    // req.currentUser.userId = null
                     window.location.reload(false)
                 }}>
                     Log Out
                 </a>
             </li>
         </>
+        )
+    }
+
+    let addPlaceButton = null
+
+    if (currentUser?.role === 'admin') {
+        addPlaceButton = (
+            <li>
+                <a href="#" onClick={() => history.push("/places/new")}>
+                    Add Place
+                </a>
+            </li>
         )
     }
 
@@ -54,11 +65,7 @@ function Navigation() {
                         Places
                     </a>
                 </li>
-                <li>
-                    <a href="#" onClick={() => history.push("/places/new")}>
-                        Add Place
-                    </a>
-                </li>
+                {addPlaceButton}
                 {loginActions}
             </ul>
         </nav>

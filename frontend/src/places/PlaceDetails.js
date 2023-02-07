@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router"
+import { CurrentUser } from "../contexts/CurrentUser";
 import CommentCard from './CommentCard'
 import NewCommentForm from "./NewCommentForm";
 
@@ -8,6 +9,8 @@ function PlaceDetails() {
 	const { placeId } = useParams()
 
 	const history = useHistory()
+
+	const { currentUser } = useContext(CurrentUser)
 
 	const [place, setPlace] = useState(null)
 
@@ -35,19 +38,9 @@ function PlaceDetails() {
 		history.push('/places')
 	}
 
-	// async function deleteComment(deletedComment) {
-	// 	await fetch(`http://localhost:5000/places/${place.placeId}/comments/${deletedComment.commentId}`, {
-	// 		method: 'DELETE'
-	// 	})
-
 	async function deleteComment(deletedComment) {
-		const response = await fetch(`http://localhost:5000/places/${place.placeId}/comments/${deletedComment.commentId}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${localStorage.getItem('token')}`
-			},
-			body: JSON.stringify(commentAttributes)
+		await fetch(`http://localhost:5000/places/${place.placeId}/comments/${deletedComment.commentId}`, {
+			method: 'DELETE'
 		})
 
 		setPlace({
@@ -61,8 +54,8 @@ function PlaceDetails() {
 		const response = await fetch(`http://localhost:5000/places/${place.placeId}/comments`, {
 			method: 'POST',
 			headers: {
-				'Authorization': `Bearer ${localStorage.getItem('token')}`,
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('token')}`
 			},
 			body: JSON.stringify(commentAttributes)
 		})
@@ -112,6 +105,21 @@ function PlaceDetails() {
 		})
 	}
 
+	let placeActions = null
+
+	if (currentUser?.role === 'admin') {
+		placeActions = (
+			<>
+				<a className="btn btn-warning" onClick={editPlace}>
+					Edit
+				</a>{` `}
+				<button type="submit" className="btn btn-danger" onClick={deletePlace}>
+					Delete
+				</button>
+			</>
+		)
+	}
+
 
 	return (
 		<main>
@@ -139,12 +147,7 @@ function PlaceDetails() {
 						Serving {place.cuisines}.
 					</h4>
 					<br />
-					<a className="btn btn-warning" onClick={editPlace}>
-						Edit
-					</a>{` `}
-					<button type="submit" className="btn btn-danger" onClick={deletePlace}>
-						Delete
-					</button>
+					{placeActions}
 				</div>
 			</div>
 			<hr />
@@ -163,6 +166,7 @@ function PlaceDetails() {
 }
 
 export default PlaceDetails
+
 
   
 
